@@ -61,7 +61,7 @@ Our framework now support four multi-source domain adaptation datasets: ```Digit
 The configuration files can be found under the folder  `./config`, and we provide four config files with the format `.yaml`. To perform the unsupervised multi-source decentralized domain adaptation on the specific dataset (e.g., DomainNet), please use the following commands:
 
 ```python
-python main.py --config DomainNet.yaml --config DomainNet.yaml --target-domain clipart -bp base_path
+python main.py --config DomainNet.yaml --target-domain clipart -bp base_path
 ```
 
 The training process for DomainNet is as follows.
@@ -102,7 +102,7 @@ We also provide the settings in `.yaml` config files to perform model aggregatio
 UMDAConfig:
     communication_rounds: 1
 ```
-The communication rounds can be set into $[0.2, 0.5 , 1 , \cdots, N]$.
+The communication rounds can be set into $[0.2, 0.5 , 1 , ... , N]$.
 
 
 
