@@ -95,7 +95,7 @@ Target Domain clipart Accuracy Top1 : 0.726 Top5: 0.902
   ```
   With this setting, we will perform poisoning attack in the source domain `real` with $30\%$ mislabeled samples.
 
-### Communication rounds
+### Communication Rounds
 
 We also provide the settings in `.yaml` config files to perform model aggregation with communication rounds $r$ as follows:
 ```
