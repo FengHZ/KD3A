@@ -25,7 +25,7 @@ import yaml
 parser = argparse.ArgumentParser(description='K3DA Official Implement')
 # Dataset Parameters
 parser.add_argument("--config", default="DigitFive.yaml")
-parser.add_argument('-bp', '--base-path', default="/data/fhz_11821062")
+parser.add_argument('-bp', '--base-path', default="./")
 parser.add_argument('--target-domain', type=str, help="The target domain we want to perform domain adaptation")
 parser.add_argument('--source-domains', type=str, nargs="+", help="The source domains we want to use")
 parser.add_argument('-j', '--workers', default=8, type=int, metavar='N',
