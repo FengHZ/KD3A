@@ -42,8 +42,6 @@ parser.add_argument('-p', '--print-freq', default=10, type=int,
 parser.add_argument('--optimizer', default="SGD", type=str, metavar="Optimizer Name")
 parser.add_argument('-m', '--momentum', default=0.9, type=float, metavar='M', help='Momentum in SGD')
 parser.add_argument('--wd', '--weight-decay', default=5e-4, type=float)
-parser.add_argument('--sharpe-method', type=str, default="confidence")
-parser.add_argument('--pseudo_label_method', type=str, default="ensemble_vote")
 parser.add_argument('-bm', '--bn-momentum', type=float, default=0.1, help="the batchnorm momentum parameter")
 parser.add_argument("--gpu", default="0", type=str, metavar='GPU plans to use', help='The GPU id plans to use')
 args = parser.parse_args()
