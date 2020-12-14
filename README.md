@@ -1,5 +1,5 @@
 # KD3A: Unsupervised Multi-Source Decentralized Domain Adaptation via Knowledge Distillation
-Here is the official implementation of the model `KD3A` in paper "KD3A: Unsupervised Multi-Source Decentralized Domain Adaptation via Knowledge Distillation".
+Here is the official implementation of the model `KD3A` in paper ["KD3A: Unsupervised Multi-Source Decentralized Domain Adaptation via Knowledge Distillation"](https://arxiv.org/abs/2011.09757).
 
 ## Model Review
 * Knowledge Distillation
@@ -103,6 +103,30 @@ UMDAConfig:
     communication_rounds: 1
 ```
 The communication rounds can be set into $[0.2, 0.5 , 1 , ... , N]$.
+
+## Reference
+
+If you find this useful in your work please consider citing:
+```
+@article{DBLP:journals/corr/abs-2011-09757,
+  author    = {Haozhe Feng and
+               Zhaoyang You and
+               Minghao Chen and
+               Tianye Zhang and
+               Minfeng Zhu and
+               Fei Wu and
+               Chao Wu and
+               Wei Chen},
+  title     = {{KD3A:} Unsupervised Multi-Source Decentralized Domain Adaptation
+               via Knowledge Distillation},
+  journal   = {CoRR},
+  volume    = {abs/2011.09757},
+  year      = {2020},
+  url       = {https://arxiv.org/abs/2011.09757},
+  archivePrefix = {arXiv},
+  eprint    = {2011.09757}
+}
+```
 
 
 
