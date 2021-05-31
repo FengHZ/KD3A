@@ -1,5 +1,5 @@
-# KD3A: Unsupervised Multi-Source Decentralized Domain Adaptation via Knowledge Distillation
-Here is the official implementation of the model `KD3A` in paper [KD3A: Unsupervised Multi-Source Decentralized Domain Adaptation via Knowledge Distillation (Accepted at ICML 2021)](https://arxiv.org/abs/2011.09757).
+# KD3A: Unsupervised Multi-Source Decentralized Domain Adaptation via Knowledge Distillation (Accepted at ICML 2021)
+Here is the official implementation of the model `KD3A` in paper [KD3A: Unsupervised Multi-Source Decentralized Domain Adaptation via Knowledge Distillation](https://arxiv.org/abs/2011.09757).
 
 ## Model Review
 * Knowledge Distillation
