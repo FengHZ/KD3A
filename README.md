@@ -37,6 +37,8 @@ base_path
 │       │   ...
 |   |   Office31
 |       |   ...
+|   |   AmazonReview
+|       |   ...
 └───trained_model_1
 │   │	parmater
 │   │	runs
@@ -48,14 +50,20 @@ base_path
 │   │	parmater
 │   │	runs    
 ```
-Our framework now support four multi-source domain adaptation datasets: ```DigitFive, DomainNet, OfficeCaltech10 and Office31```.
+Our framework now support five multi-source domain adaptation datasets: ```DigitFive, DomainNet, AmazonReview, OfficeCaltech10 and Office31```.
 
 * DigitFive
   
   The DigitFive dataset can be accessed in [Google Drive](https://drive.google.com/file/d/1QvC6mDVN25VArmTuSHqgd7Cf9CoiHvVt/view?usp=sharing).
+
 * DomainNet
   
   [VisDA2019](http://ai.bu.edu/M3SDA/) provides the DomainNet dataset.
+
+* AmazonReview
+  
+  The AmazonReview dataset can be accessed in [Google Drive](https://drive.google.com/file/d/1QbXFENNyqor1IlCpRRFtOluI2_hMEd1W/view?usp=sharing).
+
 
 ### Unsupervised Multi-source Domain Adaptation
 The configuration files can be found under the folder  `./config`, and we provide four config files with the format `.yaml`. To perform the unsupervised multi-source decentralized domain adaptation on the specific dataset (e.g., DomainNet), please use the following commands:
