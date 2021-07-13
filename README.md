@@ -117,11 +117,17 @@ The communication rounds can be set into $[0.2, 0.5 , 1 , ... , N]$.
 If you find this useful in your work please consider citing our paper. Our work is currently accepted in ICML2021.
 
 ```
-@article{feng2020kd3a,
-  title={KD3A: Unsupervised Multi-Source Decentralized Domain Adaptation via Knowledge Distillation},
-  author={Feng, Hao-Zhe and You, Zhaoyang and Chen, Minghao and Zhang, Tianye and Zhu, Minfeng and Wu, Fei and Wu, Chao and Chen, Wei},
-  journal={arXiv preprint arXiv:2011.09757},
-  year={2020}
+@InProceedings{pmlr-v139-feng21f,
+  title = 	 {KD3A: Unsupervised Multi-Source Decentralized Domain Adaptation via Knowledge Distillation},
+  author =       {Feng, Haozhe and You, Zhaoyang and Chen, Minghao and Zhang, Tianye and Zhu, Minfeng and Wu, Fei and Wu, Chao and Chen, Wei},
+  booktitle = 	 {Proceedings of the 38th International Conference on Machine Learning},
+  pages = 	 {3274--3283},
+  year = 	 {2021},
+  editor = 	 {Meila, Marina and Zhang, Tong},
+  volume = 	 {139},
+  series = 	 {Proceedings of Machine Learning Research},
+  month = 	 {18--24 Jul},
+  publisher =    {PMLR}
 }
 ```
 
