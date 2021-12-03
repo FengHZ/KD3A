@@ -7,7 +7,7 @@ ModelConfig:
   pretrained: True
 
 TrainingConfig:
-  batch_size: 100
+  batch_size: 50
   # The total data numbers we use in each epoch
   epoch_samples: 30000
   total_epochs: 80

@@ -1,5 +1,6 @@
-# KD3A: Unsupervised Multi-Source Decentralized Domain Adaptation via Knowledge Distillation
-Here is the official implementation of the model `KD3A` in paper ["KD3A: Unsupervised Multi-Source Decentralized Domain Adaptation via Knowledge Distillation"](https://arxiv.org/abs/2011.09757).
+# KD3A: Unsupervised Multi-Source Decentralized Domain Adaptation via Knowledge Distillation (Accepted at ICML 2021)
+Here is the official implementation of the model `KD3A` in paper [KD3A: Unsupervised Multi-Source Decentralized Domain Adaptation via Knowledge Distillation](https://arxiv.org/abs/2011.09757).
+
 
 ## Model Review
 * Knowledge Distillation
@@ -37,6 +38,8 @@ base_path
 │       │   ...
 |   |   Office31
 |       |   ...
+|   |   AmazonReview
+|       |   ...
 └───trained_model_1
 │   │	parmater
 │   │	runs
@@ -48,14 +51,20 @@ base_path
 │   │	parmater
 │   │	runs    
 ```
-Our framework now support four multi-source domain adaptation datasets: ```DigitFive, DomainNet, OfficeCaltech10 and Office31```.
+Our framework now support five multi-source domain adaptation datasets: ```DigitFive, DomainNet, AmazonReview, OfficeCaltech10 and Office31```.
 
 * DigitFive
   
   The DigitFive dataset can be accessed in [Google Drive](https://drive.google.com/file/d/1QvC6mDVN25VArmTuSHqgd7Cf9CoiHvVt/view?usp=sharing).
+
 * DomainNet
   
   [VisDA2019](http://ai.bu.edu/M3SDA/) provides the DomainNet dataset.
+
+* AmazonReview
+  
+  The AmazonReview dataset can be accessed in [Google Drive](https://drive.google.com/file/d/1QbXFENNyqor1IlCpRRFtOluI2_hMEd1W/view?usp=sharing).
+
 
 ### Unsupervised Multi-source Domain Adaptation
 The configuration files can be found under the folder  `./config`, and we provide four config files with the format `.yaml`. To perform the unsupervised multi-source decentralized domain adaptation on the specific dataset (e.g., DomainNet), please use the following commands:
@@ -107,24 +116,19 @@ The communication rounds can be set into $[0.2, 0.5 , 1 , ... , N]$.
 ## Reference
 
 If you find this useful in your work please consider citing:
+
 ```
-@article{DBLP:journals/corr/abs-2011-09757,
-  author    = {Haozhe Feng and
-               Zhaoyang You and
-               Minghao Chen and
-               Tianye Zhang and
-               Minfeng Zhu and
-               Fei Wu and
-               Chao Wu and
-               Wei Chen},
-  title     = {{KD3A:} Unsupervised Multi-Source Decentralized Domain Adaptation
-               via Knowledge Distillation},
-  journal   = {CoRR},
-  volume    = {abs/2011.09757},
-  year      = {2020},
-  url       = {https://arxiv.org/abs/2011.09757},
-  archivePrefix = {arXiv},
-  eprint    = {2011.09757}
+@InProceedings{pmlr-v139-feng21f,
+  title = 	 {KD3A: Unsupervised Multi-Source Decentralized Domain Adaptation via Knowledge Distillation},
+  author =       {Feng, Haozhe and You, Zhaoyang and Chen, Minghao and Zhang, Tianye and Zhu, Minfeng and Wu, Fei and Wu, Chao and Chen, Wei},
+  booktitle = 	 {Proceedings of the 38th International Conference on Machine Learning},
+  pages = 	 {3274--3283},
+  year = 	 {2021},
+  editor = 	 {Meila, Marina and Zhang, Tong},
+  volume = 	 {139},
+  series = 	 {Proceedings of Machine Learning Research},
+  month = 	 {18--24 Jul},
+  publisher =    {PMLR}
 }
 ```
 
