@@ -8,11 +8,14 @@ np.random.seed(1)
 
 import argparse
 from model.digit5 import CNN, Classifier
+from model.amazon import AmazonMLP, AmazonClassifier
 from model.officecaltech10 import OfficeCaltechNet, OfficeCaltechClassifier
 from model.domainnet import DomainNet, DomainNetClassifier
 from datasets.DigitFive import digit5_dataset_read
+from datasets.AmazonReview import amazon_dataset_read
 from lib.utils.federated_utils import *
 from train.train import train, test
+from datasets.MiniDomainNet import get_mini_domainnet_dloader
 from datasets.OfficeCaltech10 import get_office_caltech10_dloader
 from datasets.DomainNet import get_domainnet_dloader
 from datasets.Office31 import get_office31_dloader
@@ -99,6 +102,33 @@ def main(args=args, configs=configs):
             classifiers.append(Classifier(args.data_parallel).cuda())
             print("Domain {} Preprocess Finished".format(domain))
         num_classes = 10
+    elif configs["DataConfig"]["dataset"] == "AmazonReview":
+        domains = ["books", "dvd", "electronics", "kitchen"]
+        print("load target domain {}".format(args.target_domain))
+        target_train_dloader, target_test_dloader = amazon_dataset_read(args.base_path,
+                                                                        args.target_domain,
+                                                                        configs["TrainingConfig"]["batch_size"])
+        train_dloaders.append(target_train_dloader)
+        test_dloaders.append(target_test_dloader)
+        # generate MLP and Classifier for target domain
+        models.append(AmazonMLP(args.data_parallel).cuda())
+        classifiers.append(AmazonClassifier(args.data_parallel).cuda())
+        domains.remove(args.target_domain)
+        args.source_domains = domains
+        print("target domain {} loaded".format(args.target_domain))
+        # create DigitFive dataset
+        print("Source Domains :{}".format(domains))
+        for domain in domains:
+            # generate dataset for source domain
+            source_train_dloader, source_test_dloader = amazon_dataset_read(args.base_path, domain,
+                                                                            configs["TrainingConfig"]["batch_size"])
+            train_dloaders.append(source_train_dloader)
+            test_dloaders.append(source_test_dloader)
+            # generate CNN and Classifier for source domain
+            models.append(AmazonMLP(args.data_parallel).cuda())
+            classifiers.append(AmazonClassifier(args.data_parallel).cuda())
+            print("Domain {} Preprocess Finished".format(domain))
+        num_classes = 2
     elif configs["DataConfig"]["dataset"] == "OfficeCaltech10":
         domains = ['amazon', 'webcam', 'dslr', "caltech"]
         train_dloaders = []
@@ -177,6 +207,38 @@ def main(args=args, configs=configs):
                 OfficeCaltechClassifier(configs["ModelConfig"]["backbone"], 31, args.data_parallel).cuda()
             )
         num_classes = 31
+    elif configs["DataConfig"]["dataset"] == "MiniDomainNet":
+        domains = ['clipart', 'painting', 'real', 'sketch']
+        train_dloaders = []
+        test_dloaders = []
+        models = []
+        classifiers = []
+        optimizers = []
+        classifier_optimizers = []
+        optimizer_schedulers = []
+        classifier_optimizer_schedulers = []
+        target_train_dloader, target_test_dloader = get_mini_domainnet_dloader(args.base_path, args.target_domain,
+                                                                               configs["TrainingConfig"]["batch_size"],
+                                                                               args.workers)
+        train_dloaders.append(target_train_dloader)
+        test_dloaders.append(target_test_dloader)
+        models.append(
+            DomainNet(configs["ModelConfig"]["backbone"], args.bn_momentum, configs["ModelConfig"]["pretrained"],
+                      args.data_parallel).cuda())
+        classifiers.append(DomainNetClassifier(configs["ModelConfig"]["backbone"], 126, args.data_parallel).cuda())
+        domains.remove(args.target_domain)
+        args.source_domains = domains
+        for domain in domains:
+            source_train_dloader, source_test_dloader = get_mini_domainnet_dloader(args.base_path, domain,
+                                                                                   configs["TrainingConfig"][
+                                                                                       "batch_size"], args.workers)
+            train_dloaders.append(source_train_dloader)
+            test_dloaders.append(source_test_dloader)
+            models.append(DomainNet(configs["ModelConfig"]["backbone"], args.bn_momentum,
+                                    pretrained=configs["ModelConfig"]["pretrained"],
+                                    data_parallel=args.data_parallel).cuda())
+            classifiers.append(DomainNetClassifier(configs["ModelConfig"]["backbone"], 126, args.data_parallel).cuda())
+        num_classes = 126
     elif configs["DataConfig"]["dataset"] == "DomainNet":
         domains = ['clipart', 'infograph', 'painting', 'quickdraw', 'real', 'sketch']
         train_dloaders = []
@@ -273,7 +335,8 @@ def main(args=args, configs=configs):
                               confidence_gate_begin=configs["UMDAConfig"]["confidence_gate_begin"],
                               confidence_gate_end=configs["UMDAConfig"]["confidence_gate_end"],
                               malicious_domain=configs["UMDAConfig"]["malicious"]["attack_domain"],
-                              attack_level=configs["UMDAConfig"]["malicious"]["attack_level"])
+                              attack_level=configs["UMDAConfig"]["malicious"]["attack_level"],
+                              mix_aug=(configs["DataConfig"]["dataset"] != "AmazonReview"))
         test(args.target_domain, args.source_domains, test_dloaders, models, classifiers, epoch,
              writer, num_classes=num_classes, top_5_accuracy=(num_classes > 10))
         for scheduler in optimizer_schedulers:

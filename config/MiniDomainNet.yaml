@@ -1,18 +1,18 @@
 ---
 DataConfig:
-  dataset: "DomainNet"
+  dataset: "MiniDomainNet"
 
 ModelConfig:
-  backbone: "resnet101"
+  backbone: "resnet18"
   pretrained: True
 
 TrainingConfig:
   batch_size: 100
   # The total data numbers we use in each epoch
-  epoch_samples: 30000
-  total_epochs: 80
+  epoch_samples: 18000
+  total_epochs: 200
   # We decay learning rate from begin value to end value with cosine annealing schedule
-  learning_rate_begin: 0.01
+  learning_rate_begin: 0.005
   learning_rate_end: 0.0001
 
 # The configuration for our decentralized unsupervised multi-source domain adaptation

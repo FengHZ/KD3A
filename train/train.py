@@ -7,7 +7,7 @@ from lib.utils.avgmeter import AverageMeter
 
 def train(train_dloader_list, model_list, classifier_list, optimizer_list, classifier_optimizer_list, epoch, writer,
           num_classes, domain_weight, source_domains, batchnorm_mmd, batch_per_epoch, confidence_gate_begin,
-          confidence_gate_end, communication_rounds, total_epochs, malicious_domain, attack_level):
+          confidence_gate_end, communication_rounds, total_epochs, malicious_domain, attack_level,mix_aug=True):
     task_criterion = nn.CrossEntropyLoss().cuda()
     source_domain_num = len(train_dloader_list[1:])
     for model in model_list:
@@ -81,7 +81,11 @@ def train(train_dloader_list, model_list, classifier_list, optimizer_list, class
         target_weight[0] += torch.sum(consensus_weight).item()
         target_weight[1] += consensus_weight.size(0)
         # Perform data augmentation with mixup
-        lam = np.random.beta(2, 2)
+        if mix_aug:
+            lam = np.random.beta(2, 2)
+        else:
+            # Do not perform mixup
+            lam = np.random.beta(2, 2)
         batch_size = image_t.size(0)
         index = torch.randperm(batch_size).cuda()
         mixed_image = lam * image_t + (1 - lam) * image_t[index, :]
@@ -153,7 +157,10 @@ def test(target_domain, source_domains, test_dloader_list, model_list, classifie
     tmp_score = torch.cat(tmp_score, dim=0).detach()
     tmp_label = torch.cat(tmp_label, dim=0).detach()
     _, y_true = torch.topk(tmp_label, k=1, dim=1)
-    _, y_pred = torch.topk(tmp_score, k=5, dim=1)
+    if top_5_accuracy:
+        _, y_pred = torch.topk(tmp_score, k=5, dim=1)
+    else:
+        _, y_pred = torch.topk(tmp_score, k=1, dim=1)
     top_1_accuracy_t = float(torch.sum(y_true == y_pred[:, :1]).item()) / y_true.size(0)
     writer.add_scalar(tag="Test/target_domain_{}_accuracy_top1".format(target_domain).format(target_domain),
                       scalar_value=top_1_accuracy_t,
@@ -188,7 +195,10 @@ def test(target_domain, source_domains, test_dloader_list, model_list, classifie
         tmp_score = torch.cat(tmp_score, dim=0).detach()
         tmp_label = torch.cat(tmp_label, dim=0).detach()
         _, y_true = torch.topk(tmp_label, k=1, dim=1)
-        _, y_pred = torch.topk(tmp_score, k=5, dim=1)
+        if top_5_accuracy:
+            _, y_pred = torch.topk(tmp_score, k=5, dim=1)
+        else:
+            _, y_pred = torch.topk(tmp_score, k=1, dim=1)
         top_1_accuracy_s = float(torch.sum(y_true == y_pred[:, :1]).item()) / y_true.size(0)
         writer.add_scalar(tag="Test/source_domain_{}_accuracy_top1".format(domain_s), scalar_value=top_1_accuracy_s,
                           global_step=epoch + 1)
