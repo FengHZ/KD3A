@@ -131,14 +131,6 @@ def main(args=args, configs=configs):
         num_classes = 2
     elif configs["DataConfig"]["dataset"] == "OfficeCaltech10":
         domains = ['amazon', 'webcam', 'dslr', "caltech"]
-        train_dloaders = []
-        test_dloaders = []
-        models = []
-        classifiers = []
-        optimizers = []
-        classifier_optimizers = []
-        optimizer_schedulers = []
-        classifier_optimizer_schedulers = []
         target_train_dloader, target_test_dloader = get_office_caltech10_dloader(args.base_path,
                                                                                  args.target_domain,
                                                                                  configs["TrainingConfig"]["batch_size"]
@@ -170,14 +162,6 @@ def main(args=args, configs=configs):
         num_classes = 10
     elif configs["DataConfig"]["dataset"] == "Office31":
         domains = ['amazon', 'webcam', 'dslr']
-        train_dloaders = []
-        test_dloaders = []
-        models = []
-        classifiers = []
-        optimizers = []
-        classifier_optimizers = []
-        optimizer_schedulers = []
-        classifier_optimizer_schedulers = []
         target_train_dloader, target_test_dloader = get_office31_dloader(args.base_path,
                                                                          args.target_domain,
                                                                          configs["TrainingConfig"]["batch_size"],
@@ -209,14 +193,6 @@ def main(args=args, configs=configs):
         num_classes = 31
     elif configs["DataConfig"]["dataset"] == "MiniDomainNet":
         domains = ['clipart', 'painting', 'real', 'sketch']
-        train_dloaders = []
-        test_dloaders = []
-        models = []
-        classifiers = []
-        optimizers = []
-        classifier_optimizers = []
-        optimizer_schedulers = []
-        classifier_optimizer_schedulers = []
         target_train_dloader, target_test_dloader = get_mini_domainnet_dloader(args.base_path, args.target_domain,
                                                                                configs["TrainingConfig"]["batch_size"],
                                                                                args.workers)
@@ -241,14 +217,6 @@ def main(args=args, configs=configs):
         num_classes = 126
     elif configs["DataConfig"]["dataset"] == "DomainNet":
         domains = ['clipart', 'infograph', 'painting', 'quickdraw', 'real', 'sketch']
-        train_dloaders = []
-        test_dloaders = []
-        models = []
-        classifiers = []
-        optimizers = []
-        classifier_optimizers = []
-        optimizer_schedulers = []
-        classifier_optimizer_schedulers = []
         target_train_dloader, target_test_dloader = get_domainnet_dloader(args.base_path,
                                                                           args.target_domain,
                                                                           configs["TrainingConfig"]["batch_size"],
